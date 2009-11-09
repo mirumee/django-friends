@@ -226,8 +226,10 @@ if EmailAddress:
                     join_invitation.save()
                     # notification will be covered below
             for contact in Contact.objects.filter(email=instance.email):
-                contact.users.add(instance.user)
-                # @@@ send notification
+                if not instance.user in contact.users.all():
+                    contact.users.add(instance.user)
+                    if notification:
+                        notification.send([contact.user], "contact_joined", {"new_user": instance.user})
     
     # only if django-email-notification is installed
     signals.post_save.connect(new_user, sender=EmailAddress)
