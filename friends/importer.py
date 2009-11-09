@@ -87,7 +87,7 @@ def import_google(authsub_token, user):
     """
     
     contacts_service = gdata.contacts.service.ContactsService()
-    contacts_service.auth_token = authsub_token
+    contacts_service.SetAuthSubToken(authsub_token)
     contacts_service.UpgradeToSessionToken()
     entries = []
     feed = contacts_service.GetContactsFeed()
