@@ -81,7 +81,7 @@ class Friendship(models.Model):
     """
     
     to_user = models.ForeignKey(User, related_name="friends")
-    from_user = models.ForeignKey(User, related_name="_unused_")
+    from_user = models.ForeignKey(User, related_name="friends_from")
     # @@@ relationship types
     added = models.DateField(default=datetime.date.today)
     
