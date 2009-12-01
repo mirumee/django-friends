@@ -52,26 +52,20 @@ class Contact(models.Model):
 class FriendshipManager(models.Manager):
     
     def friends_for_user(self, user):
-        friends = []
-        for friendship in self.filter(from_user=user).select_related(depth=1):
-            friends.append({"friend": friendship.to_user, "friendship": friendship})
-        for friendship in self.filter(to_user=user).select_related(depth=1):
-            friends.append({"friend": friendship.from_user, "friendship": friendship})
-        return friends
+        return self.filter(from_user=user).select_related(depth=1)
     
     def are_friends(self, user1, user2):
         if self.filter(from_user=user1, to_user=user2).count() > 0:
-            return True
-        if self.filter(from_user=user2, to_user=user1).count() > 0:
             return True
         return False
     
     def remove(self, user1, user2):
         if self.filter(from_user=user1, to_user=user2):
             friendship = self.filter(from_user=user1, to_user=user2)
-        elif self.filter(from_user=user2, to_user=user1):
+            friendship.delete()
+        if self.filter(from_user=user2, to_user=user1):
             friendship = self.filter(from_user=user2, to_user=user1)
-        friendship.delete()
+            friendship.delete()
 
 
 class Friendship(models.Model):
@@ -81,7 +75,7 @@ class Friendship(models.Model):
     """
     
     to_user = models.ForeignKey(User, related_name="friends")
-    from_user = models.ForeignKey(User, related_name="friends_from")
+    from_user = models.ForeignKey(User, related_name="friends_to")
     # @@@ relationship types
     added = models.DateField(default=datetime.date.today)
     
@@ -92,7 +86,7 @@ class Friendship(models.Model):
 
 
 def friend_set_for(user):
-    return set([obj["friend"] for obj in Friendship.objects.friends_for_user(user)])
+    return set([obj.to_user for obj in Friendship.objects.friends_for_user(user)])
 
 
 INVITE_STATUS = (
@@ -156,6 +150,8 @@ class JoinInvitation(models.Model):
         # auto-create friendship
         friendship = Friendship(to_user=new_user, from_user=self.from_user)
         friendship.save()
+        friendship = Friendship(from_user=new_user, to_user=self.from_user)
+        friendship.save()
         # notify
         if notification:
             notification.send([self.from_user], "join_accept", {"invitation": self, "new_user": new_user})
@@ -189,6 +185,8 @@ class FriendshipInvitation(models.Model):
     def accept(self):
         if not Friendship.objects.are_friends(self.to_user, self.from_user):
             friendship = Friendship(to_user=self.to_user, from_user=self.from_user)
+            friendship.save()
+            friendship = Friendship(from_user=self.to_user, to_user=self.from_user)
             friendship.save()
             self.status = "5"
             self.save()
