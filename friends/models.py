@@ -60,13 +60,8 @@ class FriendshipManager(models.Manager):
         return False
     
     def remove(self, user1, user2):
-        if self.filter(from_user=user1, to_user=user2):
-            friendship = self.filter(from_user=user1, to_user=user2)
-            friendship.delete()
-        if self.filter(from_user=user2, to_user=user1):
-            friendship = self.filter(from_user=user2, to_user=user1)
-            friendship.delete()
-
+        self.filter(from_user=user1, to_user=user2).delete()
+        self.filter(from_user=user2, to_user=user1).delete()
 
 class Friendship(models.Model):
     """
