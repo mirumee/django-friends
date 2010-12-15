@@ -1,0 +1,133 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: django-friends\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-12-15 15:46+0100\n"
+"PO-Revision-Date: 2010-12-15 15:55+0100\n"
+"Last-Translator: Patryk Zawadzki <patrys@pld-linux.org>\n"
+"Language-Team: pl_PL <patrys@mirumee.com>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Polish\n"
+"X-Poedit-Country: POLAND\n"
+
+#: friends/forms.py:29
+msgid "Email"
+msgstr "Adres e-mail"
+
+#: friends/forms.py:30
+#: friends/forms.py:47
+msgid "Message"
+msgstr "Wiadomość"
+
+#: friends/forms.py:36
+msgid "Someone with that email address is already here."
+msgstr "Istnieje już użytkownik z podanym adresem e-mail."
+
+#: friends/forms.py:54
+msgid "Unknown user."
+msgstr "Nieznany użytkownik."
+
+#: friends/forms.py:62
+#, python-format
+msgid "Already requested friendship with %s"
+msgstr "Użytkownik %s został już poproszony o dodanie do znajomych"
+
+#: friends/forms.py:66
+#, python-format
+msgid "%s has already requested friendship with you"
+msgstr "Użytkownik %s już poprosił cię o dodanie do znajomych"
+
+#: friends/management.py:10
+msgid "Contact Joined"
+msgstr "Kontakt przyłączył się"
+
+#: friends/management.py:10
+msgid "one of your contacts has joined the site"
+msgstr "jeden z twoich kontaktów założył konto w serwisie"
+
+#: friends/management.py:11
+msgid "Invitation Received"
+msgstr "Otrzymano zaproszenie"
+
+#: friends/management.py:11
+msgid "you have received an invitation"
+msgstr "otrzymałeś zaproszenie"
+
+#: friends/management.py:12
+msgid "Invitation Sent"
+msgstr "Wysłano zaproszenie"
+
+#: friends/management.py:12
+msgid "you have sent an invitation"
+msgstr "wysłałeś zaproszenie"
+
+#: friends/management.py:13
+msgid "Acceptance Received"
+msgstr "Otrzymano akceptację"
+
+#: friends/management.py:13
+msgid "an invitation you sent has been accepted"
+msgstr "wysłane przez ciebie zaproszenie zostało zaakceptowane"
+
+#: friends/management.py:14
+msgid "Acceptance Sent"
+msgstr "Wysłano akceptację"
+
+#: friends/management.py:14
+msgid "you have accepted an invitation you received"
+msgstr "zaakceptowałeś jedno z otrzymanych zaproszeń"
+
+#: friends/management.py:15
+msgid "Other Connection"
+msgstr "Nowe połączenie"
+
+#: friends/management.py:15
+msgid "one of your friends has a new connection"
+msgstr "jeden z twoich znajomych ma nowe połączenie"
+
+#: friends/management.py:16
+msgid "Join Invitation Accepted"
+msgstr "Zaakceptowano zaproszenie do serwisu"
+
+#: friends/management.py:16
+msgid "an invitation you sent to join this site has been accepted"
+msgstr "jedno z wysłanych zaproszeń do rejestracji w serwisie zostało przyjęte"
+
+#: friends/templates/notification/friends_accept/notice.html:2
+#, python-format
+msgid "<a href=\"%(user_url)s\">%(invitation_user)s</a> has accepted your friend request."
+msgstr "Użytkownik <a href=\"%(user_url)s\">%(invitation_user)s</a> zaakceptował prośbę o dodanie do znajomych."
+
+#: friends/templates/notification/friends_accept_sent/notice.html:2
+#, python-format
+msgid "You accepted <a href=\"%(user_url)s\">%(invitation_from_user)s</a>'s friend request."
+msgstr "Zaakceptowałeś prośbę użytkownika <a href=\"%(user_url)s\">%(invitation_from_user)s</a> o dodanie do znajomych."
+
+#: friends/templates/notification/friends_invite/notice.html:2
+#, python-format
+msgid "<a href=\"%(user_url)s\">%(invitation_from_user)s</a> has requested to add you as a friend (see <a href=\"%(invitation_page)s\">invitations</a>)"
+msgstr "Użytkownik <a href=\"%(user_url)s\">%(invitation_from_user)s</a> prosi o dodanie do znajomych (zobacz <a href=\"%(invitation_page)s\">zaproszenia</a>)"
+
+#: friends/templates/notification/friends_invite_sent/notice.html:2
+#, python-format
+msgid "you have invited <a href=\"%(user_url)s\">%(invitation_to_user)s</a> to add you as a friend."
+msgstr "Poprosiłeś użytkownika <a href=\"%(user_url)s\">%(invitation_to_user)s</a> o dodanie do znajomych."
+
+#: friends/templates/notification/friends_otherconnect/notice.html:2
+#, python-format
+msgid "<a href=\"%(from_user_url)s\">%(invitation_from_user)s</a> and <a href=\"%(to_user_url)s\">%(to_user)s</a> are now friends."
+msgstr "Użytkownicy <a href=\"%(from_user_url)s\">%(invitation_from_user)s</a> i <a href=\"%(to_user_url)s\">%(to_user)s</a> są teraz znajomymi."
+
+#: friends/templates/notification/join_accept/notice.html:2
+#, python-format
+msgid "<a href=\"%(user_url)s\">%(new_user)s</a> has joined and is now a friend."
+msgstr "Użytkownik <a href=\"%(user_url)s\">%(new_user)s</a> zarejestrował się i jest teraz twoim znajomym."
+
