@@ -73,5 +73,4 @@ class InviteFriendForm(UserForm):
         invitation.save()
         if notification:
             notification.send([to_user], "friends_invite", {"invitation": invitation})
-            notification.send([self.user], "friends_invite_sent", {"invitation": invitation})
         return invitation
