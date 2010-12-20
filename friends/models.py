@@ -8,6 +8,7 @@ from django.db import models
 from django.db.models import signals
 from django.template.loader import render_to_string
 from django.utils.hashcompat import sha_constructor
+from django.utils.translation import ugettext_lazy as _
 
 from django.contrib.sites.models import Site
 from django.contrib.auth.models import User
@@ -85,14 +86,14 @@ def friend_set_for(user):
 
 
 INVITE_STATUS = (
-    ("1", "Created"),
-    ("2", "Sent"),
-    ("3", "Failed"),
-    ("4", "Expired"),
-    ("5", "Accepted"),
-    ("6", "Declined"),
-    ("7", "Joined Independently"),
-    ("8", "Deleted")
+    ("1", _("Created")),
+    ("2", _("Sent")),
+    ("3", _("Failed")),
+    ("4", _("Expired")),
+    ("5", _("Accepted")),
+    ("6", _("Declined")),
+    ("7", _("Joined Independently")),
+    ("8", _("Deleted"))
 )
 
 
