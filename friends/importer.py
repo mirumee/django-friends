@@ -3,7 +3,8 @@ from django.utils import simplejson as json
 
 import gdata.contacts.service
 import vobject
-import ybrowserauth
+
+import yahoo.oauth, yahoo.yql, yahoo.application
 
 from friends.models import Contact
 
@@ -31,33 +32,31 @@ def import_vcards(stream, user):
             pass # missing value so don't add anything
     return imported, total
 
-
-def import_yahoo(bbauth_token, user):
+def import_yahoo(access_token, user):
     """
-    Uses the given BBAuth token to retrieve a Yahoo Address Book and
+    Uses the given Access token to retrieve a Yahoo Address Book and
     import the entries with an email address into the contacts of the
     given user.
-    
+
     Returns a tuple of (number imported, total number of entries).
     """
-    
-    ybbauth = ybrowserauth.YBrowserAuth(settings.BBAUTH_APP_ID, settings.BBAUTH_SHARED_SECRET)
-    ybbauth.token = bbauth_token
-    address_book_json = ybbauth.makeAuthWSgetCall("http://address.yahooapis.com/v1/searchContacts?format=json&email.present=1&fields=name,email")
-    address_book = json.loads(address_book_json)
-    
+
+    oauthapp = yahoo.application.OAuthApplication(settings.YAHOO_CONSUMER_KEY, settings.YAHOO_CONSUMER_SECRET, settings.YAHOO_APPLICATION_ID, None)
+    oauthapp.token = yahoo.oauth.AccessToken.from_string(access_token)
+    address_book = oauthapp.getContacts()
+
     total = 0
     imported = 0
-    
-    for contact in address_book["contacts"]:
+
+    for contact in address_book["contacts"]['contact']:
         total += 1
-        email = contact['fields'][0]['data']
+        email = contact['fields'][0]['value']
         try:
-            first_name = contact['fields'][1]['first']
+            first_name = contact['fields'][1]['givenName']
         except (KeyError, IndexError):
             first_name = None
         try:
-            last_name = contact['fields'][1]['last']
+            last_name = contact['fields'][1]['familyName']
         except (KeyError, IndexError):
             last_name = None
         if first_name and last_name:
@@ -73,9 +72,8 @@ def import_yahoo(bbauth_token, user):
         except Contact.DoesNotExist:
             Contact(user=user, name=name, email=email).save()
             imported += 1
-    
-    return imported, total
 
+    return imported, total
 
 def import_google(authsub_token, user):
     """
